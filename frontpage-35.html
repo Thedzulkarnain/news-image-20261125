@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wednesday 25 November 2026 — The World in One Day</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1024px; height:1024px; background:#f7f3e8; color:#111;
+    font-family: Georgia, 'Times New Roman', 'DejaVu Serif', serif; overflow:hidden; }
+  .page { width:1024px; height:1024px; padding:9px 18px 6px; display:flex; flex-direction:column; }
+  /* 1. Kicker */
+  .kicker { display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:3px solid #111; padding-bottom:3px; }
+  .kicker .l { font-weight:bold; font-size:13px; letter-spacing:3px; font-family: Arial, Helvetica, sans-serif; }
+  .kicker .r { font-size:10.5px; letter-spacing:1.5px; font-family: Arial, Helvetica, sans-serif; color:#333; }
+  /* 2. Headline */
+  h1 { font-size:54px; line-height:1.0; font-weight:900; letter-spacing:-0.5px; margin-top:4px; text-align:center; }
+  .sub { font-style:italic; font-size:14.5px; text-align:center; margin-top:3px; color:#b3202a; }
+  .sub b { color:#b3202a; }
+  /* 3. Region bar (proportional segments) */
+  .regions { display:flex; margin-top:5px; height:20px; }
+  .seg { font-family: Arial, Helvetica, sans-serif; font-size:10px; font-weight:bold; color:#fff;
+    display:flex; align-items:center; justify-content:center; letter-spacing:0.5px; white-space:nowrap; overflow:hidden; }
+  /* 3b. UTC timeline */
+  .utc { display:flex; align-items:center; border-top:1px solid #999; border-bottom:1px solid #999; margin-top:4px; padding:2px 0; font-family: Arial, Helvetica, sans-serif; }
+  .utc .lbl { background:#111; color:#fff; font-weight:bold; font-size:9px; letter-spacing:1px; padding:2px 6px; margin-right:8px; flex:none; }
+  .utc .it { flex:1; font-size:10px; color:#333; text-align:center; border-left:1px solid #c9c2ae; padding:0 2px; }
+  .utc .it:first-of-type { border-left:none; }
+  .utc .it b { color:#b3202a; }
+  /* 4. Stats strip */
+  .stats { display:flex; border-bottom:2px solid #111; padding:3px 0 4px; }
+  .stat { flex:1; text-align:center; padding:0 4px; border-left:1px solid #c9c2ae; }
+  .stat:first-child { border-left:none; }
+  .stat .n { font-size:22px; font-weight:900; line-height:1; color:#b3202a; }
+  .stat .c { font-size:9.5px; font-family: Arial, Helvetica, sans-serif; color:#444; margin-top:2px; line-height:1.1; }
+  /* 5. Leads */
+  .leads { display:flex; gap:12px; margin-top:6px; }
+  .lead { flex:1; }
+  .leadimg { position:relative; width:100%; height:100px; overflow:hidden; }
+  .leadimg img { width:100%; height:100%; object-fit:cover; display:block; }
+  .imglabel { position:absolute; top:0; left:0; background:#b3202a; color:#fff;
+    font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size:10px; letter-spacing:1px;
+    padding:3px 7px; }
+  .numcirc { position:absolute; bottom:4px; left:4px; width:20px; height:20px; border-radius:50%;
+    background:#b3202a; color:#fff; border:2px solid #fff;
+    font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size:11px;
+    display:flex; align-items:center; justify-content:center; }
+  .imgsub { position:absolute; bottom:0; right:0; background:rgba(0,0,0,0.72); color:#fff;
+    font-family: Arial, Helvetica, sans-serif; font-size:9.5px; padding:2px 6px; }
+  .lkrow { display:flex; justify-content:space-between; align-items:baseline; margin-top:3px; }
+  .lk { color:#b3202a; font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size:10px; letter-spacing:0.8px; }
+  .sure { font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size:8.5px; letter-spacing:0.8px;
+    padding:1px 5px; border:1.5px solid; flex:none; }
+  .sure.off { color:#1e7a34; border-color:#1e7a34; }
+  .sure.con { color:#1e7a34; border-color:#1e7a34; }
+  .sure.rep { color:#8a6d00; border-color:#8a6d00; }
+  .sure.clm { color:#b3202a; border-color:#b3202a; }
+  .lh { font-size:17px; font-weight:900; line-height:1.08; margin-top:1px; }
+  .lb { font-size:11px; line-height:1.28; margin-top:3px; color:#222; }
+  .lb i { color:#555; }
+  .minitable { margin-top:3px; border-top:1px solid #999; font-family: Arial, Helvetica, sans-serif; font-size:10px; }
+  .minitable div { display:flex; justify-content:space-between; border-bottom:1px solid #d8d2bd; padding:1px 0; }
+  .minitable b { color:#b3202a; }
+  /* 6. Medium section header */
+  .medhead { display:flex; justify-content:space-between; align-items:baseline; margin-top:6px;
+    border-bottom:2px solid #111; padding-bottom:2px; }
+  .medhead .t { font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size:11.5px; letter-spacing:1.2px; }
+  .medhead .leg { font-family: Arial, Helvetica, sans-serif; font-size:8.5px; color:#444; }
+  .medhead .leg b { font-size:8.5px; }
+  .medhead .leg .off { color:#1e7a34; } .medhead .leg .con { color:#1e7a34; }
+  .medhead .leg .rep { color:#8a6d00; } .medhead .leg .clm { color:#b3202a; }
+  /* 7. Medium stories */
+  .medium { margin-top:5px; }
+  .medrow { display:flex; gap:10px; }
+  .medrow + .medrow { margin-top:5px; }
+  .med { flex:1; min-width:0; }
+  .thumb { width:100%; height:26px; overflow:hidden; }
+  .thumb svg { width:100%; height:26px; display:block; }
+  .mlabel { background:#b3202a; color:#fff; font-family: Arial, Helvetica, sans-serif; font-weight:bold;
+    font-size:9px; letter-spacing:0.8px; padding:2px 5px; display:inline-block; margin-top:3px; }
+  .mkrow { display:flex; justify-content:space-between; align-items:baseline; margin-top:2px; }
+  .mk { font-family: Arial, Helvetica, sans-serif; font-size:8.5px; color:#555; letter-spacing:0.4px; }
+  .msure { font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size:7.5px; letter-spacing:0.6px;
+    padding:0 4px; border:1.2px solid; flex:none; }
+  .msure.off { color:#1e7a34; border-color:#1e7a34; }
+  .msure.rep { color:#8a6d00; border-color:#8a6d00; }
+  .mh { font-size:12.5px; font-weight:900; line-height:1.12; margin-top:1px; }
+  .mb { font-size:10.5px; line-height:1.22; color:#333; margin-top:1px; }
+  /* 8. Bottom section */
+  .bottom { display:flex; gap:14px; margin-top:6px; }
+  .mapcol { width:452px; flex:none; }
+  .sect { font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size:11.5px; letter-spacing:1.2px;
+    border-bottom:2px solid #111; padding-bottom:3px; margin-bottom:5px; }
+  .mapwrap { position:relative; width:452px; height:225px; overflow:hidden; }
+  .mapwrap img { width:100%; height:100%; display:block; }
+  .pin { position:absolute; width:14px; height:14px; margin:-7px 0 0 -7px; background:#b3202a; color:#fff;
+    border-radius:50%; font-family: Arial, Helvetica, sans-serif; font-size:8.5px; font-weight:bold;
+    display:flex; align-items:center; justify-content:center; border:1.5px solid #fff; }
+  .mapcap { font-size:9.5px; color:#555; font-family: Arial, Helvetica, sans-serif; margin-top:3px; font-style:italic; }
+  .alsocol { flex:1; min-width:0; }
+  .alsocol .sect { font-size:11px; }
+  .alsolist { columns:2; column-gap:14px; font-size:9.5px; line-height:1.18; }
+  .alsolist div { break-inside:avoid; margin-bottom:2px; }
+  .alsolist b { color:#b3202a; font-family: Arial, Helvetica, sans-serif; font-size:10px; }
+  .alsolist i { color:#666; font-size:9px; }
+  /* 9. Date check */
+  .datecheck { border:2px solid #b3202a; padding:4px 9px; margin-top:6px; font-size:10px; line-height:1.3; }
+  .datecheck b { color:#b3202a; font-family: Arial, Helvetica, sans-serif; letter-spacing:1px; font-size:10px; }
+  /* 10. Footer */
+  .footer { display:flex; justify-content:space-between; font-family: Arial, Helvetica, sans-serif;
+    font-size:9px; color:#666; margin-top:5px; border-top:1px solid #999; padding-top:4px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="kicker">
+    <span class="l">THE WORLD IN ONE DAY</span>
+    <span class="r">35 STORIES &middot; ALL FROM WEDNESDAY 25 NOVEMBER 2026</span>
+  </div>
+
+  <h1>Wednesday 25 November 2026</h1>
+  <div class="sub">Pakistan&rsquo;s first astronaut flies to Tiangong &nbsp;&diams;&nbsp; Asia&rsquo;s chip stocks crash &nbsp;&diams;&nbsp; Tankers burn in Hormuz</div>
+
+  <div class="regions">
+    <span class="seg" style="width:21.7%;background:#b3202a">ASIA 9</span>
+    <span class="seg" style="width:14.3%;background:#d2691e">MIDDLE EAST 5</span>
+    <span class="seg" style="width:17.1%;background:#1f4e79">EUROPE 6</span>
+    <span class="seg" style="width:17.1%;background:#2e6b34">AMERICAS 6</span>
+    <span class="seg" style="width:11.4%;background:#5b2d8e">AFRICA 4</span>
+    <span class="seg" style="width:11.4%;background:#0e7a6b">OCEANIA 4</span>
+    <span class="seg" style="width:7%;background:#555">GLOBAL 1</span>
+  </div>
+
+  <div class="utc">
+    <span class="lbl">THE DAY IN UTC</span>
+    <span class="it"><b>00:21</b> Shenzhou-24 lifts off</span>
+    <span class="it"><b>03:56</b> Crew docks at Tiangong</span>
+    <span class="it"><b>05:30</b> Taiex closes &minus;4.8%</span>
+    <span class="it"><b>06:30</b> Kospi closes &minus;6.2%</span>
+    <span class="it"><b>10:00</b> London Tube strike starts</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">1st</div><div class="c">foreign astronaut to visit China&rsquo;s Tiangong station</div></div>
+    <div class="stat"><div class="n">&minus;6.2%</div><div class="c">Kospi, as Asia&rsquo;s chip stocks plunge</div></div>
+    <div class="stat"><div class="n">2</div><div class="c">tankers hit mines in Hormuz, Iran&rsquo;s IRGC says</div></div>
+    <div class="stat"><div class="n">47,000</div><div class="c">women killed by partner or kin in 2025, UN says</div></div>
+    <div class="stat"><div class="n">26</div><div class="c">miners trapped in a flooded West Java pit</div></div>
+    <div class="stat"><div class="n">+36%</div><div class="c">Bangladesh garment minimum wage</div></div>
+  </div>
+
+  <div class="leads">
+    <div class="lead">
+      <div class="leadimg"><img src="lead-shenzhou.png" alt="Shenzhou-24"><span class="imglabel">LIFTOFF &middot; WED 25 NOV</span><span class="numcirc">1</span><span class="imgsub">LONG MARCH 2F &middot; 3 CREW</span></div>
+      <div class="lkrow"><span class="lk">1&nbsp; JIUQUAN, CHINA &middot; SPACE</span><span class="sure off">OFFICIAL</span></div>
+      <div class="lh">Shenzhou-24 flies a Pakistani to Tiangong</div>
+      <div class="lb">Zeeshan Ali is the first foreigner to fly to Tiangong; the crew docked hours after the Long March 2F lifted off. <i>(Xinhua, Reuters)</i></div>
+    </div>
+    <div class="lead">
+      <div class="leadimg"><img src="lead-markets.png" alt="Chip crash"><span class="imglabel">ASIA CLOSE &middot; WED 25 NOV</span><span class="numcirc">2</span><span class="imgsub">CLOSING PRICES</span></div>
+      <div class="lkrow"><span class="lk">2&nbsp; SEOUL &middot; TAIPEI &middot; TOKYO &middot; MARKETS</span><span class="sure con">CONFIRMED</span></div>
+      <div class="lh">Asia&rsquo;s chip stocks crash on AI doubts</div>
+      <div class="lb">Samsung &minus;9.9%, SK Hynix &minus;11.1%; Nvidia CEO Huang&rsquo;s return fails to calm markets; Taiex &minus;4.8%. <i>(Al Jazeera, AFP)</i></div>
+      <div class="minitable">
+        <div><span>Kospi</span><b>&minus;6.2%</b></div>
+        <div><span>Taiex</span><b>&minus;4.8%</b></div>
+        <div><span>SK Hynix</span><b>&minus;11.1%</b></div>
+      </div>
+    </div>
+    <div class="lead">
+      <div class="leadimg"><img src="lead-hormuz.png" alt="Hormuz tankers"><span class="imglabel">NAVAL MINE</span><span class="numcirc">3</span><span class="imgsub">STRAIT OF HORMUZ</span></div>
+      <div class="lkrow"><span class="lk">3&nbsp; STRAIT OF HORMUZ &middot; IRAN WAR</span><span class="sure clm">CLAIM</span></div>
+      <div class="lh">Two oil tankers hit mines and burn, Iran says</div>
+      <div class="lb">The IRGC Navy says they took an &ldquo;unauthorised route&rdquo; early on Wednesday; not independently confirmed. <i>(IRIB, AA, Arab News)</i></div>
+    </div>
+  </div>
+
+  <div class="medhead">
+    <span class="t">ALSO ON WEDNESDAY 25 NOVEMBER</span>
+    <span class="leg">HOW SURE: <b class="off">OFFICIAL</b> govt, agency or company &middot; <b class="con">CONFIRMED</b> 2+ major outlets &middot; <b class="rep">REPORTED</b> one outlet &middot; <b class="clm">CLAIM</b> one side, unverified</span>
+  </div>
+
+  <div class="medium">
+    <div class="medrow">
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#dfe9f2"/><rect x="0" y="22" width="180" height="8" fill="#8a5a2e"/><rect x="14" y="4" width="3" height="20" fill="#333"/><path d="M17 4 L48 9 L17 14 Z" fill="#1f4e79"/><circle cx="24" cy="8" r="1.6" fill="#fff"/><circle cx="32" cy="9" r="1.2" fill="#fff"/><rect x="140" y="4" width="3" height="20" fill="#333"/><path d="M143 4 L174 9 L143 14 Z" fill="#2e6b34"/><circle cx="150" cy="8" r="1.4" fill="#ffd24d"/><circle cx="158" cy="9" r="1.2" fill="#ffd24d"/><rect x="70" y="18" width="40" height="6" fill="#5b3a1e"/></svg></div>
+        <span class="mlabel">TREATY &middot; SIGNED 25 NOV</span>
+        <div class="mkrow"><span class="mk">4&nbsp; CANBERRA, AUSTRALIA</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">Australia and Solomons sign security treaty</div>
+        <div class="mb">No foreign bases allowed; more jobs and easier visas for Solomon Islanders.</div>
+      </div>
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#f2e8e8"/><rect x="25" y="14" width="18" height="16" fill="#b3202a"/><rect x="55" y="10" width="18" height="20" fill="#7a1f1f"/><rect x="85" y="6" width="18" height="24" fill="#b3202a"/><rect x="115" y="16" width="18" height="14" fill="#555"/><rect x="145" y="20" width="18" height="10" fill="#999"/><rect x="0" y="28" width="180" height="2" fill="#333"/></svg></div>
+        <span class="mlabel">47,000 KILLED IN 2025</span>
+        <div class="mkrow"><span class="mk">5&nbsp; UNITED NATIONS</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">UN: five women an hour killed by partner or kin</div>
+        <div class="mb">47,000 in 2025, says a brief for the day to end violence against women.</div>
+      </div>
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#2b2118"/><rect x="30" y="8" width="70" height="10" rx="4" fill="#8a5a2e" transform="rotate(-18 65 13)"/><rect x="95" y="10" width="55" height="7" rx="3" fill="#a67c52" transform="rotate(-18 122 13)"/><rect x="55" y="20" width="60" height="5" rx="2" fill="#c9a06a"/><rect x="140" y="6" width="14" height="20" fill="#fff"/><path d="M147 8 L152 8 L152 24 L147 24 Z" fill="#b3202a"/></svg></div>
+        <span class="mlabel">10 OF 12 COUNTS</span>
+        <div class="mkrow"><span class="mk">6&nbsp; SHENZHEN &middot; BEIJING</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">Huawei rejects US guilty verdict</div>
+        <div class="mb">Convicted in Brooklyn on 10 of 12 counts; Beijing slams US &ldquo;suppression&rdquo;.</div>
+      </div>
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#1c2733"/><rect x="0" y="24" width="180" height="6" fill="#3a2e22"/><circle cx="90" cy="14" r="6" fill="#666"/><rect x="86" y="12" width="8" height="4" fill="#999"/><line x1="90" y1="8" x2="52" y2="4" stroke="#888" stroke-width="1.5"/><line x1="90" y1="8" x2="128" y2="4" stroke="#888" stroke-width="1.5"/><circle cx="52" cy="4" r="3" fill="#999"/><circle cx="128" cy="4" r="3" fill="#999"/><circle cx="30" cy="20" r="2" fill="#ffd24d"/><circle cx="150" cy="20" r="2" fill="#ffd24d"/></svg></div>
+        <span class="mlabel">4 DRONES DOWNED</span>
+        <div class="mkrow"><span class="mk">7&nbsp; RAS TANURA, SAUDI ARABIA</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">Saudis down Houthi drones over oil port</div>
+        <div class="mb">Four destroyed after coalition strikes on Hodeidah; Houthis threaten Jeddah.</div>
+      </div>
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#e8dcc0"/><path d="M20 4 L160 4 L150 26 L30 26 Z" fill="#8a5a2e"/><path d="M40 4 L140 4 L135 18 L45 18 Z" fill="#5b3a1e"/><rect x="45" y="18" width="90" height="8" fill="#2e6b8a"/><rect x="60" y="8" width="10" height="6" fill="#ffd24d"/><rect x="110" y="8" width="10" height="6" fill="#fff"/></svg></div>
+        <span class="mlabel">100 M DEEP</span>
+        <div class="mkrow"><span class="mk">8&nbsp; BOGOR, INDONESIA</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">26 trapped in flooded gold mine</div>
+        <div class="mb">Rescuers search a 100-metre pit at Pongkor after a river burst its banks.</div>
+      </div>
+    </div>
+    <div class="medrow">
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#dfe9f2"/><rect x="10" y="14" width="50" height="16" fill="#7a1f1f"/><rect x="60" y="10" width="50" height="20" fill="#5b2d1e"/><rect x="110" y="16" width="60" height="14" fill="#8a5a2e"/><rect x="22" y="6" width="6" height="10" fill="#333"/><rect x="72" y="2" width="6" height="10" fill="#333"/><path d="M150 8 L160 2 L170 8 L165 18 L155 18 Z" fill="#ffd24d"/><rect x="156" y="18" width="8" height="6" fill="#fff"/></svg></div>
+        <span class="mlabel">+36% &middot; 17,500 TK</span>
+        <div class="mkrow"><span class="mk">9&nbsp; DHAKA, BANGLADESH</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">Garment workers win 36% pay rise</div>
+        <div class="mb">Minimum wage to rise to 17,500 taka ($136) a month after weeks of protest.</div>
+      </div>
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#1c1c22"/><rect x="30" y="8" width="14" height="22" fill="#666"/><rect x="55" y="4" width="14" height="26" fill="#888"/><rect x="80" y="10" width="14" height="20" fill="#666"/><path d="M37 2 L42 8 L32 8 Z" fill="#ff7a1a"/><path d="M62 0 L67 5 L57 5 Z" fill="#ff7a1a"/><path d="M87 4 L92 10 L82 10 Z" fill="#ff7a1a"/><rect x="120" y="18" width="40" height="4" fill="#444"/></svg></div>
+        <span class="mlabel">SYZRAN &middot; KUIBYSHEV</span>
+        <div class="mkrow"><span class="mk">10&nbsp; SAMARA, RUSSIA</span><span class="msure rep">REPORTED</span></div>
+        <div class="mh">Ukrainian drones hit two refineries</div>
+        <div class="mb">Fires reported at Syzran and Kuibyshev; Putin had called retaliation &ldquo;inevitable&rdquo;.</div>
+      </div>
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#dfe9f2"/><rect x="60" y="8" width="60" height="22" fill="#fff"/><rect x="60" y="8" width="60" height="6" fill="#b3202a"/><rect x="84" y="14" width="12" height="12" fill="#b3202a"/><rect x="78" y="17" width="24" height="6" fill="#b3202a"/><rect x="20" y="20" width="20" height="10" fill="#2e6b34"/><rect x="140" y="20" width="20" height="10" fill="#2e6b34"/></svg></div>
+        <span class="mlabel">AKWE &middot; 3 DAYS</span>
+        <div class="mkrow"><span class="mk">11&nbsp; ITURI, DR CONGO</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">WHO pulls staff out of Ebola zone hospital</div>
+        <div class="mb">Team sheltered 3 days in Akwe amid army&ndash;CRP fighting; Mongbwalu team moved.</div>
+      </div>
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#1c2733"/><circle cx="90" cy="15" r="11" fill="none" stroke="#b3202a" stroke-width="4"/><rect x="86" y="4" width="8" height="22" fill="#1f4e79"/><circle cx="90" cy="15" r="4" fill="#fff"/><rect x="20" y="20" width="50" height="4" fill="#888"/><rect x="110" y="20" width="50" height="4" fill="#888"/></svg></div>
+        <span class="mlabel">CIRCLE &middot; PICCADILLY</span>
+        <div class="mkrow"><span class="mk">12&nbsp; LONDON, UK</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">Tube strike shuts Circle and Piccadilly lines</div>
+        <div class="mb">Morning rush hit as drivers walk out; talks continue.</div>
+      </div>
+      <div class="med">
+        <div class="thumb"><svg viewBox="0 0 180 30" preserveAspectRatio="none"><rect width="180" height="30" fill="#2b1c33"/><path d="M30 24 L40 8 L55 18 L70 4 L85 18 L100 8 L115 18 L130 4 L145 18 L150 24 Z" fill="#ffd24d"/><circle cx="40" cy="6" r="2.5" fill="#fff"/><circle cx="70" cy="2" r="2.5" fill="#fff"/><circle cx="100" cy="6" r="2.5" fill="#fff"/><circle cx="130" cy="2" r="2.5" fill="#fff"/><rect x="30" y="24" width="120" height="4" fill="#b3202a"/></svg></div>
+        <span class="mlabel">75TH CROWN</span>
+        <div class="mkrow"><span class="mk">13&nbsp; SAN JUAN, PUERTO RICO</span><span class="msure off">OFFICIAL</span></div>
+        <div class="mh">Puerto Rico wins Miss Universe at home</div>
+        <div class="mb">Jennifer Barreto, 27, takes the 75th crown.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="mapcol">
+      <div class="sect">WHERE IT HAPPENED &middot; PINS = STORY NUMBERS</div>
+      <div class="mapwrap">
+        <img src="map.png" alt="World map">
+        <span class="pin" style="left:73%;top:24%">1</span>
+        <span class="pin" style="left:84%;top:24%">2</span>
+        <span class="pin" style="left:58%;top:34%">3</span>
+        <span class="pin" style="left:86%;top:68%">4</span>
+        <span class="pin" style="left:24%;top:22%">5</span>
+        <span class="pin" style="left:79%;top:31%">6</span>
+        <span class="pin" style="left:57%;top:38%">7</span>
+        <span class="pin" style="left:76%;top:52%">8</span>
+        <span class="pin" style="left:70%;top:36%">9</span>
+        <span class="pin" style="left:57%;top:14%">10</span>
+        <span class="pin" style="left:51%;top:48%">11</span>
+        <span class="pin" style="left:46%;top:14%">12</span>
+        <span class="pin" style="left:27%;top:40%">13</span>
+      </div>
+      <div class="mapcap">Each number is that story with that number on this page.</div>
+    </div>
+    <div class="alsocol">
+      <div class="sect">IN BRIEF &middot; 22 MORE FROM 25 NOVEMBER</div>
+      <div class="alsolist">
+        <div><b>14</b> Tokyo: Electron &minus;12.5%, Advantest &minus;12.9% as chip rout deepens</div>
+        <div><b>15</b> Kuala Lumpur: Malaysia Airlines&rsquo; parent orders 10 Boeing 787s</div>
+        <div><b>16</b> Sanaa: Houthis tell Saudi Red Sea port workers to flee</div>
+        <div><b>17</b> Tehran: IRGC chief says forces ready to push &ldquo;enemy&rdquo; back</div>
+        <div><b>18</b> Canberra: Australia apologises to LGBTQ military veterans</div>
+        <div><b>19</b> Perth: Deloitte barred from WA work over AI-flawed report</div>
+        <div><b>20</b> Suva: Fiji drought: 92 communities without water supply</div>
+        <div><b>21</b> Kyiv: US rules out troops in post-war guarantees: report</div>
+        <div><b>22</b> Kyiv region: Russian strike kills one, hits delivery depots</div>
+        <div><b>23</b> Odesa: Russian strike kills two, including a teenager</div>
+        <div><b>24</b> London: UK warns firms of Russian sabotage threat</div>
+        <div><b>25</b> Brussels: EU unveils &euro;55bn fund for AI and quantum firms</div>
+        <div><b>26</b> Benghazi: Two Libyan soldiers die after Ukraine port attack</div>
+        <div><b>27</b> Khartoum: Sudan rejects Ethiopia&rsquo;s offer to host peace talks</div>
+        <div><b>28</b> Havana: WHO chief urges end to US fuel blockade of Cuba</div>
+        <div><b>29</b> Washington: Trump team shelves business offers to Russia: FT</div>
+        <div><b>30</b> Washington: Hackers breached a CIA-ODNI unclassified system</div>
+        <div><b>31</b> Washington: Tariff rise readied for China, EU and 14 others</div>
+        <div><b>32</b> Juneau: Alaska ends voter-roll deal with Justice Dept</div>
+        <div><b>33</b> Caracas: Venezuela puts its debt at $237.5bn, 242% of GDP</div>
+        <div><b>34</b> Sydney: Inflation leaps to 4.9% from 4.3%</div>
+        <div><b>35</b> Pretoria: Won&rsquo;t drop empowerment laws over US tariffs</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="datecheck"><b>DATE CHECK</b> &mdash; Left out as earlier news or not yet happened: Nvidia and the leaked count of Russia&rsquo;s war dead (Mon 23 Nov), COP31&rsquo;s collapse (Sun 22 Nov), the first strike on Riyadh&rsquo;s PIF tower (Thu 19 Nov), Huawei convicted in Brooklyn (Tue 24 Nov), Abrego Garcia flies to Spain (Tue 24 Nov), Putin&rsquo;s &ldquo;inevitable&rdquo; retaliation vow (Tue 24 Nov), drone hits Riyadh tower (Tue 24 Nov), Huang back at Nvidia (Mon 23 Nov). Every story here happened, or was first reported, on Wednesday 25 November 2026 in some time zone.</div>
+
+  <div class="footer">
+    <span>Sources: Al Jazeera &middot; AFP &middot; Reuters &middot; Xinhua &middot; AA &middot; AP &middot; IRIB &middot; Arab News &middot; Gulf News</span>
+    <span>DRAWN BY AN AI AGENT FOR MAKE.FUN &middot; WEDNESDAY 25 NOVEMBER 2026 &middot; ONE DAY, ONE PAGE</span>
+  </div>
+
+</div>
+</body>
+</html>
